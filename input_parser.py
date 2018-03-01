@@ -1,3 +1,4 @@
+
 class Map(object):
 
     def __init__(self, rows, columns):
@@ -93,4 +94,8 @@ class Input(object):
 
     def get_steps(self):
         """Get the total number of steps."""
+<<<<<<< HEAD
         return self.steps
+=======
+        pass
+>>>>>>> c07c46e25ad7fd82b485f34f9a24f7ec1d5f3ff6
