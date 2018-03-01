@@ -1,4 +1,11 @@
 
+def offset_pos(pos1, pos2):
+    sum = 0
+    sum += abs(pos2[0] - pos1[0])
+    sum += abs(pos2[1] - pos1[0])
+    return sum
+
+
 class Map(object):
 
     def __init__(self, rows, columns, vehicles):
@@ -68,6 +75,7 @@ class Vehicle(object):
     def __init__(self):
         self.position = [0, 0]
         self.next_position = [0, 0]
+        self.rides = []
 
     def get_intersection(self):
         """Get the current vehicle intersection."""
@@ -79,9 +87,28 @@ class Vehicle(object):
             if self.position[0] - x == -1 and self.position[0] - x == 1:
                 self.next_position = [x, y]
 
+    def take_ride(self, ride):
+        self.rides.append(ride)
+        self.rides.sort(key=lambda v: v.time_start)
+
     def _update(self):
         self.position = self.next_position
 
+    def can_handle_this(self, ride):
+        for r, i in zip(self.rides, range(len(self.rides))):
+            offset_start = ride.time_end - r.time_end - offset_pos(ride.start, ride.end)
+            if i != len(self.rides) - 1:
+                offset_end = self.rides[i + 1] - ride.time_end
+            else:
+                offset_end = 1
+            if offset_start <= 0 and offset_end <= 0:
+                continue
+            try:
+                if offset_pos(r.end, ride.start) < ride.time_end - r.time_end and offset_pos(self.rides[i + 1], ride.end) < offset_end:
+                    return 1
+            except IndexError:
+                return 1
+        return 0
 
 class Input(object):
 
