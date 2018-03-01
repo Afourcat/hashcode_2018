@@ -54,6 +54,14 @@ class Ride(object):
         if self.step >= self.time_start:
             self.remaining_time = self.remaining_time - 1
 
+    def __str__(self):
+        return ("From {0} to {1}, starting at {2} and lasting at {3}".format(
+            self.start,
+            self.end,
+            self.time_start,
+            self.time_end
+        ))
+
 
 class Vehicle(object):
 
@@ -67,8 +75,8 @@ class Vehicle(object):
 
     def move(self, x, y):
         """Move the vehicle to the corresponding case nex step."""
-        if self.position[0] - x == -1  self.position[0] - x == 1:
-            if self.position[0] - x == -1  self.position[0] - x == 1:
+        if self.position[0] - x == -1 and self.position[0] - x == 1:
+            if self.position[0] - x == -1 and self.position[0] - x == 1:
                 self.next_position = [x, y]
 
     def _update(self):
@@ -80,22 +88,24 @@ class Input(object):
     def __init__(self, file):
         self.file = file
         lines = self.file.split('\n')
-        values = [int(i) for i in lines.split(' ')]
-        self.map = Map(values[0], values[1])
+        lines.pop(len(lines) - 1)
+        values = [int(k) for k in lines[0].split(' ')]
         self.vehicles = []
         for i in range(values[2]):
             self.vehicles.append(Vehicle())
         self.rides = []
         for k, v in zip(lines, range(len(lines))):
-            if v != 0 and v + 1 != len(lines):
-                values = [int(i) for i in lines.split(' ')]
+            if v != 0 and v != len(lines):
+                values = [int(i) for i in k.split(' ')]
                 self.rides.append(Ride(
                     [values[0], values[1]],
-                    [values[3], values[3]],
-                    values[5],
-                    values[6]
+                    [values[2], values[3]],
+                    values[4],
+                    values[5]
                 ))
+        self.rides.sort(key=lambda v: v.time_start)
         self.steps = values[5]
+        self.map = Map(values[0], values[1], self.vehicles)
 
     def get_map(self):
         """Get the map object from the file."""

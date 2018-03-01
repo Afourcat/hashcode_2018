@@ -6,12 +6,16 @@ from input_parser import *
 class Application(object):
 
     def __init__(self, file):
+        with open(file, "r") as fR:
+            file = fR.read()
         data = Input(file)
         self.map = data.get_map()
         self.vehicles = data.get_vehicles()
         self.rides = data.get_rides()
         self.max_steps = data.get_steps()
         self.step = 0
+        for i in self.rides:
+            print(i)
 
     def main():
         while self.step < self.max_steps:
