@@ -1,3 +1,6 @@
+#!/bin/python3
+"""Hashcode algorithme""""
+
 class Map(object):
 
     def __init__(self):
