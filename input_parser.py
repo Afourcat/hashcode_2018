@@ -1,5 +1,5 @@
 #!/bin/python3
-"""Hashcode algorithme""""
+"""Hashcode algorithme"""
 
 class Map(object):
 
