@@ -1,9 +1,10 @@
 
 class Map(object):
 
-    def __init__(self, rows, columns):
+    def __init__(self, rows, columns, vehicles):
         self.columns = columns
         self.rows = rows
+        self.vehicles = vehicles
 
     def get_vehicles(self, x, y):
         """Get the vehicles at this intersection."""
@@ -21,6 +22,7 @@ class Map(object):
 class Ride(object):
 
     def __init__(self, start, end, time_start, time_end):
+        self.step = 0
         self.remaining_time = time_end - time_start
         self.start = start
         self.end = end
@@ -47,15 +49,30 @@ class Ride(object):
         """Get the remaining time for this ride."""
         return self.remaining_time
 
+    def _update(self):
+        self.step = self.step + 1
+        if self.step >= self.time_start:
+            self.remaining_time = self.remaining_time - 1
+
 
 class Vehicle(object):
 
     def __init__(self):
         self.position = [0, 0]
+        self.next_position = [0, 0]
 
     def get_intersection(self):
         """Get the current vehicle intersection."""
         return self.position
+
+    def move(self, x, y):
+        """Move the vehicle to the corresponding case nex step."""
+        if self.position[0] - x == -1  self.position[0] - x == 1:
+            if self.position[0] - x == -1  self.position[0] - x == 1:
+                self.next_position = [x, y]
+
+    def _update(self):
+        self.position = self.next_position
 
 
 class Input(object):
