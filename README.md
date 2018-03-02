@@ -4,7 +4,7 @@ Hashcode 2018 python exercises
 **Dipatch** rides on cars.
 more rides were dones more points we earned.
 Final we got: **33 000 000 pts**
-LeaderBoard: **1863** / 37000
+LeaderBoard: **1863** / 5000
 
 ### Written by [Thomas Nicollet](https://github.com/nwmqpa)
 ### Thinked by
